@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sicpa.gssd</groupId>
+    <artifactId>tt099</artifactId>
+    <version>1.0.12-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.sicpa.common</groupId>
+        <artifactId>sicpa-pom</artifactId>
+        <version>12</version>
+    </parent>
+
+    <name>Project's POM</name>
+    <description>Gold master customization repository for the Sicpatrace solution based on STD.</description>
+
+
+  	<modules>
+       <module>pom</module>
+       <module>server</module>
+       <module>client</module>
+   </modules>
+
+    <licenses>
+        <license>
+            <name>SICPA</name>
+            <url>http://www.sicpa.com</url>
+            <distribution>repo</distribution>
+            <comments>Inhouse license. No distribution outside the company.</comments>
+        </license>
+    </licenses>
+
+	<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>enforce-no-snapshots</id>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                            <requireReleaseDeps>
+                                <message>No Snapshots Allowed for a Project having a release version number (no -SNAPSHOT in version name)!</message>
+                                <onlyWhenRelease>true</onlyWhenRelease>
+                            </requireReleaseDeps>
+                        </rules>
+                        <fail>true</fail>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>external.atlassian.jgitflow</groupId>
+            <artifactId>jgitflow-maven-plugin</artifactId>
+            <version>1.0-m5.1</version>
+            <configuration>
+                <flowInitContext>
+                    <masterBranchName>master</masterBranchName>
+                    <developBranchName>develop</developBranchName>
+                    <featureBranchPrefix>feature/</featureBranchPrefix>
+                    <releaseBranchPrefix>release/</releaseBranchPrefix>
+                    <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+                    <versionTagPrefix>v</versionTagPrefix>
+                </flowInitContext>
+            </configuration>
+        </plugin>
+    </plugins>
+
+    </build>
+
+</project>
